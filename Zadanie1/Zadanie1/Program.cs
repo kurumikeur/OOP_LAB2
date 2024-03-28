@@ -1,10 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-using zadanie1;
+using ServerApp;
+using ClientApp;
 
-Calls.Sendrequest("https://Google.com/");
-Calls.Sendrequest("https://yandex.ru");
 
-while (true)
-{
-    Thread.Sleep(1000);
-}
+Client newClient = new();
+await newClient.Connect(Server1.IP);
+await newClient.SendRequest(Server1.IP, "abasdxas");
+//newClient.SendRequest(newServ.GetIP(), "Lol");
+
+Console.WriteLine("!");
+Thread.Sleep(10000);
+
