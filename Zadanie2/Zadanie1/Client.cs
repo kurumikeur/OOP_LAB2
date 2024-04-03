@@ -16,10 +16,7 @@ namespace ClientApp
             Stopwatch timer = new Stopwatch();
             try
             {
-                timer.Start();
                 client.Connect(destination, 8888);
-                timer.Stop();
-                Console.WriteLine("Connected in: {0} ms", timer.Elapsed.Milliseconds);
             }
             catch (SocketException)
             {

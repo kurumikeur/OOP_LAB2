@@ -16,9 +16,7 @@ namespace ClientApp
             Stopwatch timer = new Stopwatch();
             try
             {
-                timer.Start();
                 await clientAsync.ConnectAsync(destination, 8888);
-                timer.Stop();
                 Console.WriteLine("Connected in: {0} ms", timer.Elapsed.Milliseconds);
             }
             catch (SocketException)
@@ -29,16 +27,12 @@ namespace ClientApp
         }
         public async Task<bool> SendRequest(string destination, string msg)
         {
-            Stopwatch timer = new Stopwatch();
+            Thread.Sleep(1000);
             var data = Encoding.UTF8.GetBytes(msg);
-            
-            timer.Start();
             await clientAsync.SendAsync(data);
             Console.WriteLine("Message sent: " + msg);
-
             var buff = new byte[1024];
             await clientAsync.ReceiveAsync(buff);
-            timer.Stop();
             Console.WriteLine("Message received: " + Encoding.UTF8.GetString(buff));
             return true;
         }
