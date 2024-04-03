@@ -28,11 +28,11 @@ namespace ServerApp
         public override async Task Receive()
         {
             socket.Listen();
-            var listener = await socket.AcceptAsync();
+            var listener = socket.Accept();
             while (true)
             {
                 var data = new byte[1024];
-                int bytes = await listener.ReceiveAsync(data);
+                int bytes =  listener.Receive(data);
                 StringBuilder msg = new();
                 do
                 {
@@ -42,7 +42,7 @@ namespace ServerApp
                 Console.WriteLine($"[Server 1] Received message: {msg}");
                 msg.Append(listener.GetHashCode().ToString());
                 msg.Append(" [Server 1]");
-                await listener.SendAsync(Encoding.UTF8.GetBytes(msg.ToString()));
+                listener.Send(Encoding.UTF8.GetBytes(msg.ToString()));
                 Console.WriteLine(msg.ToString());
             }
         }
@@ -65,7 +65,7 @@ namespace ServerApp
     //    public override async Task Receive()
     //    {
     //        var data = new byte[1024];
-    //        var listener = await socket.AcceptAsync();
+    //        var listener =  socket.AcceptAsync();
     //        listener.Receive(data);
     //        StringBuilder msg = new();
     //        do
@@ -95,7 +95,7 @@ namespace ServerApp
     //    public override async Task Receive()
     //    {
     //        var data = new byte[1024];
-    //        var listener = await socket.AcceptAsync();
+    //        var listener =  socket.AcceptAsync();
     //        listener.Receive(data);
     //        StringBuilder msg = new();
     //        do
